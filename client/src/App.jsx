@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchImage } from "./services/api";
-import Maps from "./services/components/Maps";
+import Maps from "./components/Maps";
 
 function App() {
   const [imageUrl, setImageUrl] = useState("");
