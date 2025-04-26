@@ -11,15 +11,15 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/home/image", (req, res) => {
+app.get("/image", (req, res) => {
     res.json({
       image: "https://via.placeholder.com/400x200.png?text=Health+Resource", // or base64
     });
 });
 
-app.get('/', (req,res) => {
-    res.send("API is Running");
-})
+// app.get('/', (req,res) => {
+//     res.send("API is Running");
+// })
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>{

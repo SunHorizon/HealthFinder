@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchImage } from "./services/api";
+import Maps from "./services/components/Maps";
 
 function App() {
   const [imageUrl, setImageUrl] = useState("");
@@ -18,14 +19,7 @@ function App() {
   }, []);
 
   return (
-    <div style={{ textAlign: "center", marginTop: "2rem" }}>
-      <h1>Image from Server</h1>
-      {imageUrl ? (
-        <img src={imageUrl} alt="Fetched from server" style={{ maxWidth: "500px" }} />
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <Maps />
   );
 }
 
