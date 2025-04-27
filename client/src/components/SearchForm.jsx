@@ -4,9 +4,7 @@ import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 
 
-function SearchForm(){
-
-    const [selectedPlace, setSelectedPlace] = useState(null);
+function SearchForm({ onPlaceSelect, selectedPlace }){
 
     const map = useMap();
 
@@ -26,7 +24,6 @@ function SearchForm(){
             boxShadow: '2px 0 5px rgba(0, 0, 0, 0.05)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px'
             }}>
             <h1 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
                 🏥 Find Health Services
@@ -36,7 +33,7 @@ function SearchForm(){
             </p>
 
             <div>
-                <PlaceAutocomplete onPlaceSelect={setSelectedPlace} />
+                <PlaceAutocomplete onPlaceSelect={onPlaceSelect} />
             </div>
         </div>
     )
