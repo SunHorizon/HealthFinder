@@ -1,0 +1,45 @@
+
+import PlaceAutocomplete from "./PlaceAutocomplete";
+import { useState, useEffect } from "react";
+import { useMap } from "@vis.gl/react-google-maps";
+
+
+function SearchForm(){
+
+    const [selectedPlace, setSelectedPlace] = useState(null);
+
+    const map = useMap();
+
+    useEffect(() =>{
+        if(!selectedPlace) return;
+        if(selectedPlace.geometry?.viewport){
+            map.fitBounds(selectedPlace.geometry?.viewport)
+        }
+    }, [selectedPlace])
+
+    return (
+        <div style={{
+            width: '320px',
+            padding: '30px 20px',
+            backgroundColor: '#ffffff',
+            borderRight: '1px solid #e0e0e0',
+            boxShadow: '2px 0 5px rgba(0, 0, 0, 0.05)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px'
+            }}>
+            <h1 style={{ fontSize: '24px', marginBottom: '10px', color: '#333' }}>
+                🏥 Find Health Services
+            </h1>
+            <p style={{fontSize: '14px', color: '#666'}}>
+                Search your address below:
+            </p>
+
+            <div>
+                <PlaceAutocomplete onPlaceSelect={setSelectedPlace} />
+            </div>
+        </div>
+    )
+}
+
+export default SearchForm;
