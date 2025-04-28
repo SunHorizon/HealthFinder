@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 
 
-function SearchForm({ onPlaceSelect, selectedPlace }){
+function SearchForm({ onPlaceSelect, selectedPlace, radius, setRadius}){
 
     const map = useMap();
 
@@ -34,6 +34,19 @@ function SearchForm({ onPlaceSelect, selectedPlace }){
 
             <div>
                 <PlaceAutocomplete onPlaceSelect={onPlaceSelect} />
+            </div>
+
+            <div style={{margin: '20px 0px'}}>
+                <label>Search Radius (meters): {radius}</label>
+                <input 
+                    type="range"
+                    min={10000}
+                    max={200000}
+                    step={500}
+                    value={radius}
+                    onChange={(e) => {setRadius(Number(e.target.value))}}
+                    style={{width: '100%'}}
+                />
             </div>
         </div>
     )

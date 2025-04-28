@@ -7,15 +7,16 @@ import { APIProvider } from "@vis.gl/react-google-maps";
 
 function App() {
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [radius, setRadius] = useState(5000);
 
   return (
     <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
       <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         {/* Sidebar */}
-        <SearchForm onPlaceSelect={setSelectedPlace} selectedPlace={selectedPlace}/>
+        <SearchForm onPlaceSelect={setSelectedPlace} selectedPlace={selectedPlace} radius={radius} setRadius={setRadius}/>
         {/* Map */}
         <div style={{ flexGrow: 1 }}>
-          <Maps Place={selectedPlace}/>
+          <Maps Place={selectedPlace} radius={radius}/>
         </div>
       </APIProvider>  
     </div>
