@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div style={{ display: 'flex', height: '100vh', width: '100vw' }}>
-      <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
+      <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY} libraries={['places']}>
         {/* Sidebar */}
         <SearchForm onPlaceSelect={setSelectedPlace} selectedPlace={selectedPlace} radius={radius} setRadius={setRadius}/>
         {/* Map */}

@@ -41,7 +41,7 @@ function SearchForm({ onPlaceSelect, selectedPlace, radius, setRadius}){
                 <input 
                     type="range"
                     min={10000}
-                    max={200000}
+                    max={50000}
                     step={500}
                     value={radius}
                     onChange={(e) => {setRadius(Number(e.target.value))}}
