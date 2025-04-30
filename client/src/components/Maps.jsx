@@ -1,7 +1,7 @@
 import { Map as GoogleMap, Marker} from '@vis.gl/react-google-maps';
 import { Circle } from './Circle';
 import { useEffect, useState, useRef } from 'react';
-import { useMapsLibrary, useMap } from '@vis.gl/react-google-maps';
+import { useMapsLibrary, useMap, InfoWindow } from '@vis.gl/react-google-maps';
 import searchNearby from '../services/searchNearby';
 import { identifyPlaceType } from '../services/searchNearby';
 import { simplifiedMapStyle } from '../styles/mapstyles';
@@ -20,6 +20,7 @@ const markerIcons = {
 function Maps({Place, radius}) {
 
     const [healthPlaces, setHealthPlaces] = useState([]);
+    const [selectedPlace, setSelectedPlace] = useState(null);
 
     useEffect(() => {
         if(!Place || !radius) return;
@@ -69,17 +70,55 @@ function Maps({Place, radius}) {
                         key={place.Eg.id || index}
                         position={{
                             lat: Number(place.Eg.location.lat),
-                            lng: Number(place.Eg.location.lng) ,
+                            lng: Number(place.Eg.location.lng),
                         }}
                         icon={{
                             url: icon,
                             scaledSize: new window.google.maps.Size(40, 40) // scale marker size
                         }}        
                         title={place.Eg.displayName?.text || ''}   
+                        onClick={() => setSelectedPlace(place)}
                     />
                 )
 
             })}
+
+            {/* Information window display health service details*/}
+            {selectedPlace && (
+                <InfoWindow 
+                    position={{
+                        lat: selectedPlace.Eg.location.lat,
+                        lng: selectedPlace.Eg.location.lng,
+                    }}
+                    onCloseClick={() => setSelectedPlace(null)}
+                >
+                    <div>
+                        <h3>{selectedPlace.Eg.displayName || 'Unknown Place'}</h3>
+                        <p>Address: {selectedPlace.Eg.formattedAddress || 'No address available'}</p>
+                        <p>Health Service: {(selectedPlace.Eg.types && selectedPlace.Eg.types.length > 0) ? selectedPlace.Eg.types[0] : 'N/A'}</p>
+                        <p>Status: {selectedPlace.Eg.businessStatus || 'N/A'}</p>
+                        <p>Website: <a href={selectedPlace.Eg.websiteURI} target="_blank">{selectedPlace.Eg.websiteURI}</a> </p>
+                        <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${selectedPlace.Eg.formattedAddress}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                display: "inline-block",
+                                marginTop: "8px",
+                                padding: "6px 12px",
+                                backgroundColor: "#007bff",
+                                color: "#fff",
+                                borderRadius: "4px",
+                                textDecoration: "none",
+                                fontSize: "14px",
+                            }}
+                            >
+                            Navigate
+                        </a>
+                    </div>
+
+                </InfoWindow>
+            )}
 
 
         </GoogleMap> 

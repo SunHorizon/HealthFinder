@@ -21,7 +21,7 @@ async function searchNearby(place, radius){
         const center = new google.maps.LatLng(shiftedLat, shiftedLng);
         const request = {
           // required parameters
-          fields: ["displayName", "location", "businessStatus", "types"],
+          fields: ["displayName", "location", "businessStatus", "types", "formattedAddress", "websiteURI"],
           locationRestriction: {
             center: center,
             radius: radius,
