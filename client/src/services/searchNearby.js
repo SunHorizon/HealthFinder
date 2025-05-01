@@ -2,7 +2,7 @@ import { useMap } from "@vis.gl/react-google-maps";
 
 
 
-async function searchNearby(place, radius){
+async function searchNearby(place, radius, healthTypes){
     const { Place, SearchNearbyRankPreference } = await google.maps.importLibrary("places");
 
     const lat = place.geometry.location.lat();
@@ -26,7 +26,7 @@ async function searchNearby(place, radius){
             center: center,
             radius: radius,
           },
-          includedPrimaryTypes: ["doctor", "pharmacy", "hospital", "drugstore", "dentist", "physiotherapist"],
+          includedPrimaryTypes: healthTypes,
           rankPreference: SearchNearbyRankPreference.DISTANCE,
        };
 

@@ -1,0 +1,39 @@
+
+
+
+.toggle-container {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    width: 250px;
+    font-family: sans-serif;
+}
+
+.toggle-container h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.toggle-list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.toggle-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+}
+
+.toggle-item:hover {
+    background-color: #e9ecef;
+  }
+  
+.toggle-item input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #28a745;
+}

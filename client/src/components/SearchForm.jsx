@@ -2,11 +2,20 @@
 import PlaceAutocomplete from "./PlaceAutocomplete";
 import { useState, useEffect } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
+import '../styles/healthServiceToggle.css';
 
 
-function SearchForm({ onPlaceSelect, selectedPlace, radius, setRadius}){
+function SearchForm({ onPlaceSelect, selectedPlace, radius, setRadius, setHealthservicetype, healthServicetype}){
 
     const map = useMap();
+    const healthServiceTypes = [
+        "doctor",
+        "pharmacy",
+        "hospital",
+        "drugstore",
+        "dentist",
+        "physiotherapist",
+    ];
 
     useEffect(() =>{
         if(!selectedPlace) return;
@@ -14,6 +23,12 @@ function SearchForm({ onPlaceSelect, selectedPlace, radius, setRadius}){
             map.fitBounds(selectedPlace.geometry?.viewport)
         }
     }, [selectedPlace])
+
+    function handleHealthServiceToggle(type){
+        setHealthservicetype(prev => 
+            prev.includes(type) ? prev.filter(t => t != type) : [...prev, type]
+        );
+    }
 
     return (
         <div style={{
@@ -47,6 +62,22 @@ function SearchForm({ onPlaceSelect, selectedPlace, radius, setRadius}){
                     onChange={(e) => {setRadius(Number(e.target.value))}}
                     style={{width: '100%'}}
                 />
+            </div>
+
+            <div className="toggle-container">
+                <h3>Filter Health Services</h3>
+                <div className="toggle-list">
+                    {healthServiceTypes.map(type => (
+                        <label key={type} className="toggle-item">
+                            <input 
+                                type="checkbox"
+                                checked={healthServicetype.includes(type)}
+                                onClick={() => handleHealthServiceToggle(type) }
+                            />
+                            <span>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                        </label>
+                    ))}
+                </div>
             </div>
         </div>
     )

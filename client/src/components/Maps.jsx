@@ -17,19 +17,19 @@ const markerIcons = {
     default: '/icons/default.png',
 };
 
-function Maps({Place, radius}) {
+function Maps({Place, radius, healthServicetype}) {
 
     const [healthPlaces, setHealthPlaces] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
 
     useEffect(() => {
-        if(!Place || !radius) return;
+        if(!Place || !radius || !healthServicetype.length) return;
 
-        searchNearby(Place, radius).then(result => {
+        searchNearby(Place, radius, healthServicetype).then(result => {
             console.log(result);
             setHealthPlaces(result);         
         })
-    }, [Place, radius])
+    }, [Place, radius, healthServicetype])
 
 
     return (    
@@ -119,8 +119,6 @@ function Maps({Place, radius}) {
 
                 </InfoWindow>
             )}
-
-
         </GoogleMap> 
     );
 }
