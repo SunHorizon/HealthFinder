@@ -11,6 +11,43 @@ export const simplifiedMapStyle = [
     elementType: "geometry",
     stylers: [{ color: "#e2f0d9" }], // Soft green for healthcare relevance
   },
+  
+  {
+    featureType: "poi.attraction",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }], // Soft green for healthcare relevance
+  },
+  {
+    featureType: "poi.business",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }], // Soft green for healthcare relevance
+  },
+  {
+    featureType: "poi.government",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }], // Soft green for healthcare relevance
+  },
+  {
+    featureType: "poi.park",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }], // Soft green for healthcare relevance
+  },
+  {
+    featureType: "poi.place_of_worship",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }], // Soft green for healthcare relevance
+  },
+  {
+    featureType: "poi.school",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }], // Soft green for healthcare relevance
+  },
+  {
+    featureType: "poi.sports_complex",
+    elementType: "labels",
+    stylers: [{ visibility: "off" }], // Soft green for healthcare relevance
+  },
+  
   {
     featureType: "poi.medical",
     elementType: "geometry",
@@ -25,11 +62,6 @@ export const simplifiedMapStyle = [
     featureType: "road",
     elementType: "geometry",
     stylers: [{ color: "#ffffff" }],
-  },
-  {
-    featureType: "road",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#6b6b6b" }],
   },
   {
     featureType: "water",

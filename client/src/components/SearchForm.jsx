@@ -79,6 +79,12 @@ function SearchForm({ onPlaceSelect, selectedPlace, radius, setRadius, setHealth
                     ))}
                 </div>
             </div>
+
+            <div id="directions-panel" 
+            style={{ width: '100%', height: '100%', overflowY: 'auto', padding: '10px', marginTop: '20px'}}>
+            <h3>Directions</h3>
+                {/* Directions will auto-populate here */}
+            </div>
         </div>
     )
 }

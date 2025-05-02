@@ -5,6 +5,7 @@ import { useMapsLibrary, useMap, InfoWindow } from '@vis.gl/react-google-maps';
 import searchNearby from '../services/searchNearby';
 import { identifyPlaceType } from '../services/searchNearby';
 import { simplifiedMapStyle } from '../styles/mapstyles';
+import getDirections from '../services/directions';
 
 
 const markerIcons = {
@@ -22,6 +23,10 @@ function Maps({Place, radius, healthServicetype}) {
     const [healthPlaces, setHealthPlaces] = useState([]);
     const [selectedPlace, setSelectedPlace] = useState(null);
 
+    const [directions, setDirections] = useState(null);
+
+    const map = useMap();
+
     useEffect(() => {
         if(!Place || !radius || !healthServicetype.length) return;
 
@@ -30,6 +35,23 @@ function Maps({Place, radius, healthServicetype}) {
             setHealthPlaces(result);         
         })
     }, [Place, radius, healthServicetype])
+
+
+    useEffect(() => {
+        if (!map || !directions) return;
+
+        const renderer = new google.maps.DirectionsRenderer({
+            map,
+            panel: document.getElementById("directions-panel"),
+            suppressMarkers: false,
+            preserveViewport: true,
+        })
+
+        renderer.setDirections(directions);
+
+        return () => renderer.setMap(null);
+    }, [map, directions])
+    
 
 
     return (    
@@ -99,7 +121,7 @@ function Maps({Place, radius, healthServicetype}) {
                         <p>Status: {selectedPlace.Eg.businessStatus || 'N/A'}</p>
                         <p>Website: <a href={selectedPlace.Eg.websiteURI} target="_blank">{selectedPlace.Eg.websiteURI}</a> </p>
                         <a
-                            href={`https://www.google.com/maps/dir/?api=1&destination=${selectedPlace.Eg.formattedAddress}`}
+                            href={`https://www.google.com/maps/dir/?api=1&origin=${Place.geometry.location.lat()},${Place.geometry.location.lng()}&destination=${selectedPlace.Eg.formattedAddress}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
@@ -115,6 +137,23 @@ function Maps({Place, radius, healthServicetype}) {
                             >
                             Navigate
                         </a>
+                        <div
+                            style={{
+                                display: "inline-block",
+                                marginTop: "8px",
+                                marginLeft: '200px',
+                                padding: "6px 12px",
+                                backgroundColor: "#007bff",
+                                color: "#fff",
+                                borderRadius: "4px",
+                                textDecoration: "none",
+                                fontSize: "14px",
+                                cursor: 'pointer',
+                            }}
+                            onClick={() => getDirections(selectedPlace.Eg.formattedAddress, Place, setDirections)}
+                        >
+                            Get Directions
+                        </div>
                     </div>
 
                 </InfoWindow>
